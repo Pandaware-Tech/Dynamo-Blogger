@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DynamoBlogggerConfig(AppConfig):
+class DynamoBloggerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'dynamo_bloggger'
+    name = 'dynamo_blogger'
