@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dynamo_blogger.apps.DynamoBloggerConfig'
+    'dynamo_blogger.apps.DynamoBloggerConfig',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# CKEditor Config
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 500,
+        'width': 1000,
+    },
+    'special': {
+        'toolbar': 'Special', 'height': 500,
+         'toolbar_Special':
+             [
+                 ['Bold'],
+                 ['CodeSnippet'], # here
+             ], 'extraPlugins': ['codesnippet', 'devtools', 'uploadimage', 'preview'] # here
+        }
+}
