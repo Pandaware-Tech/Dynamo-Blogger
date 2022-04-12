@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dynamo_blogger.apps.DynamoBloggerConfig'
+    'dynamo_blogger.apps.DynamoBloggerConfig',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
