@@ -27,9 +27,17 @@ class Category(TimeStampedModel):
         
 
 class Post(TimeStampedModel):
+    STATUS_TYPES = (
+        ("draft", "draft"),
+        ("published", "published"),
+        ("in-review", "in-review"),
+        ("rejected", "rejected"),
+    )
+    
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
     description = RichTextField()
+    status = models.CharField(max_length=10, choices=STATUS_TYPES, default="draft")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     
     class Meta:
