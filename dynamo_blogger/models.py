@@ -36,7 +36,9 @@ class Post(TimeStampedModel):
     
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
+    categories = models.ManyToManyField(Category, null=True, blank=True)
     description = RichTextField()
+    featured = models.BooleanField(default=False)
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default="draft")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     
