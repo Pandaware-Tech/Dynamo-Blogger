@@ -10,7 +10,7 @@ User = get_user_model()
 
 class Category(TimeStampedModel):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     
     class Meta:
         verbose_name_plural = "Blog Categories"
@@ -19,7 +19,7 @@ class Category(TimeStampedModel):
     def save(self, *args, **kwargs):
         
         if not self.slug:
-            slug = slugify(self.title)
+            self.slug = slugify(self.title)
             super(Category, self).save(*args, **kwargs)
         super(Category, self).save(*args, **kwargs)
         
@@ -34,7 +34,7 @@ class Post(TimeStampedModel):
     )
     
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     categories = models.ManyToManyField(Category, null=True, blank=True)
     description = RichTextField()
     featured = models.BooleanField(default=False)
@@ -48,7 +48,7 @@ class Post(TimeStampedModel):
     def save(self, *args, **kwargs):
         
         if not self.slug:
-            slug = slugify(self.title)
+            self.slug = slugify(self.title)
             super(Post, self).save(*args, **kwargs)
         super(Post, self).save(*args, **kwargs)
         
@@ -79,6 +79,6 @@ class Comment(TimeStampedModel):
         return self.name
     
     def save(self, *args, **kwargs):
-        email = self.email.lower()
+        self.email = self.email.lower()
         super(Comment, self).save(*args, **kwargs)
     
