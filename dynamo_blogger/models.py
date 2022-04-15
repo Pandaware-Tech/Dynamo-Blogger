@@ -60,7 +60,9 @@ class Post(TimeStampedModel):
             super(Post, self).save(*args, **kwargs)
         super(Post, self).save(*args, **kwargs)
         
-    
+    def get_absolute_url(self):
+        return reverse("dynamo_blogger:blog__post", args=[self.slug])
+         
     def get_number_of_comments(self):
         """
         It returns the number of comments associated with a post
