@@ -36,7 +36,7 @@
 						<ul class="nav-menu nav navbar-nav">
 							{% for category in categories %}
 							<li>
-								<a href="category.html">
+								<a href="{{ category.get_absolute_url }}">
 									{{ category.title }}
 								</a>
 							</li>

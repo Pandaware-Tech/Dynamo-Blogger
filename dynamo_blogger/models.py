@@ -21,7 +21,7 @@ class Category(TimeStampedModel):
         return self.slug
     
     def get_absolute_url(self):
-        return reverse("category__page", kwargs={"slug": self.slug})
+        return reverse("dynamo_blogger:category__page", args=[self.slug])
     
     
     def save(self, *args, **kwargs):
