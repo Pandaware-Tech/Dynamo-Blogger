@@ -145,5 +145,13 @@ CKEDITOR_CONFIGS = {
 
 # Dynamo Blogger Config
 DYNAMO_BLOGGER = {
-    'site_name': 'DYNAMO BLOG'
+    
+    # Site Name
+    'site_name': 'DYNAMO BLOG',
+    
+    # Social Links
+    'facebook': 'https://facebook.com/',
+    'twitter': 'https://twitter.com/',
+    'linkedin': 'https://linkedin.com/',
+    'instagram': 'https://instagram.com',
 }
