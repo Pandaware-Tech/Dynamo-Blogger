@@ -34,26 +34,14 @@
 					<div class="nav-btns">
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<ul class="nav-menu nav navbar-nav">
+							{% for category in categories %}
 							<li>
 								<a href="category.html">
-									Web Design
+									{{ category.title }}
 								</a>
 							</li>
-							<li>
-								<a href="category.html">
-									JavaScript
-								</a>
-							</li>
-							<li>
-								<a href="category.html">
-									Css
-								</a>
-							</li>
-							<li>
-								<a href="category.html">
-									Jquery
-								</a>
-							</li>
+							{% endfor %}
+
 						</ul>
 					</div>
 
