@@ -11,7 +11,9 @@
 
 	<link href="https://fonts.googleapis.com/css7227.css?family=Nunito+Sans:700%7CNunito:300,600" rel="stylesheet">
 
+	<!-- Styles -->
 	<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+	<link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}" />
 </head>
 
 <body>
@@ -24,28 +26,19 @@
 				<div class="container">
 
 					<div class="nav-logo">
-						<a href="index-2.html" class="logo"><img src="{% static 'img/xlogo.png.pagespeed.ic.s-UgktC5Y3.png' %}"
-								alt=""></a>
+						<a href="index-2.html" class="logo">
+							{{ site__name }}
+							</a>
 					</div>
-
-
-					<ul class="nav-menu nav navbar-nav">
-						<li><a href="category.html">News</a></li>
-						<li><a href="category.html">Popular</a></li>
-						<li class="cat-1"><a href="category.html">Web Design</a></li>
-						<li class="cat-2"><a href="category.html">JavaScript</a></li>
-						<li class="cat-3"><a href="category.html">Css</a></li>
-						<li class="cat-4"><a href="category.html">Jquery</a></li>
-					</ul>
-
 
 					<div class="nav-btns">
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
-						<button class="search-btn"><i class="fa fa-search"></i></button>
-						<div class="search-form">
-							<input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
-							<button class="search-close"><i class="fa fa-times"></i></button>
-						</div>
+						<ul class="nav-menu nav navbar-nav">
+							<li class="cat-1"><a href="category.html">Web Design</a></li>
+							<li class="cat-2"><a href="category.html">JavaScript</a></li>
+							<li class="cat-3"><a href="category.html">Css</a></li>
+							<li class="cat-4"><a href="category.html">Jquery</a></li>
+						</ul>
 					</div>
 
 				</div>
