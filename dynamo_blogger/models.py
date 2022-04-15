@@ -15,6 +15,9 @@ class Category(TimeStampedModel):
     class Meta:
         verbose_name_plural = "Blog Categories"
         db_table = "blog_categories"
+        
+    def __str__(self) -> str:
+        return self.slug
     
     def save(self, *args, **kwargs):
         
