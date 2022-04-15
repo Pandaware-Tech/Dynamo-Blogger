@@ -6,3 +6,12 @@ a.logo {
 ul.nav-menu li > a {
     text-transform: uppercase !important;
 }
+
+h3.post-title > a {
+    text-decoration: none !important;
+}
+
+.cat-1, .cat-2, .cat-3, .cat-4 {
+    background-color: #000 !important;
+    border-bottom: 0px solid transparent !important;
+}
