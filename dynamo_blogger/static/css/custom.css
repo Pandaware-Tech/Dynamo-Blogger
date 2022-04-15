@@ -2,3 +2,7 @@
 a.logo {
     text-decoration: none !important;
 }
+
+ul.nav-menu li > a {
+    text-transform: uppercase !important;
+}
