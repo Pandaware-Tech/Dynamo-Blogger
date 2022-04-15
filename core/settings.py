@@ -141,3 +141,9 @@ CKEDITOR_CONFIGS = {
              ], 'extraPlugins': ['codesnippet', 'devtools', 'uploadimage', 'preview'] # here
         }
 }
+
+
+# Dynamo Blogger Config
+DYNAMO_BLOGGER = {
+    'site_name': 'DYNAMO BLOG'
+}
