@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 
 
 def home__page(request:HttpRequest) -> HttpResponse:
     
-    context = {}
+    context = {
+        "site__name": settings.DYNAMO_BLOGGER['site_name']
+    }
     return render(request, "blog/index.html", context)
 
 
