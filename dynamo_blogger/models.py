@@ -1,6 +1,7 @@
 from django.utils.text import slugify
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 from dynamo_blogger.helpers.timestamps import TimeStampedModel
 
@@ -18,6 +19,10 @@ class Category(TimeStampedModel):
         
     def __str__(self) -> str:
         return self.slug
+    
+    def get_absolute_url(self):
+        return reverse("category__page", kwargs={"slug": self.slug})
+    
     
     def save(self, *args, **kwargs):
         
