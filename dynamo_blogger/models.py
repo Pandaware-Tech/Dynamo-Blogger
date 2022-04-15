@@ -11,7 +11,6 @@ User = get_user_model()
 class Category(TimeStampedModel):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    color_number = models.IntegerField(default=1)
     
     class Meta:
         verbose_name_plural = "Blog Categories"
