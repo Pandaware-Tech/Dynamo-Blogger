@@ -17,12 +17,48 @@ def home__page(request:HttpRequest) -> HttpResponse:
     
     categories = Category.objects.all().order_by("date_created")
     
+    # Get latest updated posts
+    latest_posts = Post.objects.filter(status="published").order_by("date_updated")[:2]
+    
+    # Get recent created posts
+    recent_posts = Post.objects.filter(status="published").order_by("date_created")[:6]
+    
+    # Get categories title 
+    category_names = []
+    
+    # Append each category name to category_names list
+    [category_names.append(category.slug) for category in categories]
+    
+    # Print category names to the terminal
+    print("Category Names: ", category_names[2])
+    
+    # Get posts with different categories
+    posts_1 = Post.objects.filter(tag__slug=category_names[0], status="published").order_by("date_created")[:1]
+    posts_2 = Post.objects.filter(tag__slug=category_names[1], status="published").order_by("date_created")[:2]
+    posts_3 = Post.objects.filter(tag__slug=category_names[2], status="published").order_by("date_created")[:2]
+    posts_4 = Post.objects.filter(tag__slug=category_names[3], status="published").order_by("date_created")[:2]
+    
+    # Get featured posts
+    featured_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:3]
+    
+    # Most read featured posts
+    most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
+    
     context = {
         "site__name": settings.DYNAMO_BLOGGER['site_name'],
         "facebook": settings.DYNAMO_BLOGGER['facebook'],
         "twitter": settings.DYNAMO_BLOGGER['twitter'],
         "linkedin": settings.DYNAMO_BLOGGER['linkedin'],
         "instagram": settings.DYNAMO_BLOGGER['instagram'],
+        
+        "latest_posts": latest_posts,
+        "recent_posts": recent_posts,
+        "posts_1": posts_1,
+        "posts_2": posts_2,
+        "posts_3": posts_3,
+        "posts_4": posts_4,
+        "featured_posts": featured_posts,
+        "most_read_posts": most_read_posts,
         
         "categories": categories
     }

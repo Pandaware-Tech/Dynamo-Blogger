@@ -42,8 +42,9 @@ class Post(TimeStampedModel):
     )
     
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, null=True, blank=True)
-    categories = models.ManyToManyField(Category, null=True, blank=True)
+    slug = models.SlugField(max_length=255, null=True, blank=True, editable=False)
+    image = models.ImageField(upload_to="post_images/", null=True, blank=True)
+    tag = models.ForeignKey(Category, null=True, blank=True, on_delete=models.DO_NOTHING)
     description = RichTextField()
     featured = models.BooleanField(default=False)
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default="draft")
@@ -52,6 +53,9 @@ class Post(TimeStampedModel):
     class Meta:
         verbose_name_plural = "Blog Posts"
         db_table = "blog_posts"
+        
+    def __str__(self) -> str:
+        return "{}: {}".format(self.title, self.tag.slug)
     
     def save(self, *args, **kwargs):
         
@@ -92,3 +96,18 @@ class Comment(TimeStampedModel):
         self.email = self.email.lower()
         super(Comment, self).save(*args, **kwargs)
     
+    
+class PostAuthor(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to="author_images/", null=True, blank=True)
+    biography = RichTextField(null=True, blank=True)
+    facebook = models.URLField(null=True, blank=True)
+    twitter = models.URLField(null=True, blank=True)
+    linkedin = models.URLField(null=True, blank=True)
+    
+    class Meta:
+        verbose_name_plural = "Blog Authors"
+        db_table = "blog_authors"
+    
+    def __str__(self) -> str:
+        return "{}'s author profile".format(self.user.username)
