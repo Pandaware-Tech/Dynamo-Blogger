@@ -43,6 +43,7 @@ class Post(TimeStampedModel):
     
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, null=True, blank=True, editable=False)
+    image = models.ImageField(upload_to="post_images/", null=True, blank=True)
     tag = models.ForeignKey(Category, null=True, blank=True, on_delete=models.DO_NOTHING)
     description = RichTextField()
     featured = models.BooleanField(default=False)
