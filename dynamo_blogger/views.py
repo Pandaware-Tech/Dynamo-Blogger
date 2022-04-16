@@ -30,7 +30,7 @@ def home__page(request:HttpRequest) -> HttpResponse:
     [category_names.append(category.slug) for category in categories]
     
     # Print category names to the terminal
-    print("Category Names: ", category_names)
+    print("Category Names: ", category_names[2])
     
     # Get posts with different categories
     posts_1 = Post.objects.filter(tag__slug=category_names[0], status="published").order_by("date_created")[:1]
