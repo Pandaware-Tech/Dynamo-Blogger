@@ -18,10 +18,10 @@ def home__page(request:HttpRequest) -> HttpResponse:
     categories = Category.objects.all().order_by("date_created")
     
     # Get latest updated posts
-    latest_posts = Post.objects.all().order_by("date_updated")[:2]
+    latest_posts = Post.objects.filter(status="published").order_by("date_updated")[:2]
     
     # Get recent created posts
-    recent_posts = Post.objects.all().order_by("date_created")[:6]
+    recent_posts = Post.objects.filter(status="published").order_by("date_created")[:6]
     
     # Get categories title 
     category_names = []
@@ -33,12 +33,16 @@ def home__page(request:HttpRequest) -> HttpResponse:
     print("Category Names: ", category_names)
     
     # Get posts with different categories
-    posts_1 = Post.objects.get(tag__slug=category_names[0])[:1]
-    posts_2 = Post.objects.filter(tag__slug=category_names[1])[:2]
-    posts_3 = Post.objects.filter(tag__slug=category_names[2])[:2]
-    posts_4 = Post.objects.filter(tag__slug=category_names[3])[:2]
+    posts_1 = Post.objects.filter(tag__slug=category_names[0], status="published").order_by("date_created")[:1]
+    posts_2 = Post.objects.filter(tag__slug=category_names[1], status="published").order_by("date_created")[:2]
+    posts_3 = Post.objects.filter(tag__slug=category_names[2], status="published").order_by("date_created")[:2]
+    posts_4 = Post.objects.filter(tag__slug=category_names[3], status="published").order_by("date_created")[:2]
     
-    # Get posts wit
+    # Get featured posts
+    featured_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:3]
+    
+    # Most read featured posts
+    most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
     
     context = {
         "site__name": settings.DYNAMO_BLOGGER['site_name'],
