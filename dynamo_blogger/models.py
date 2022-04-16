@@ -42,7 +42,7 @@ class Post(TimeStampedModel):
     )
     
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, null=True, blank=True)
+    slug = models.SlugField(max_length=255, null=True, blank=True, editable=False)
     tag = models.ForeignKey(Category, null=True, blank=True, on_delete=models.DO_NOTHING)
     description = RichTextField()
     featured = models.BooleanField(default=False)
@@ -52,6 +52,9 @@ class Post(TimeStampedModel):
     class Meta:
         verbose_name_plural = "Blog Posts"
         db_table = "blog_posts"
+        
+    def __str__(self) -> str:
+        return self.title
     
     def save(self, *args, **kwargs):
         
