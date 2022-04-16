@@ -54,7 +54,7 @@ class Post(TimeStampedModel):
         db_table = "blog_posts"
         
     def __str__(self) -> str:
-        return self.title
+        return "{}: {}".format(self.title, self.tag.slug)
     
     def save(self, *args, **kwargs):
         
