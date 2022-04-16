@@ -17,6 +17,29 @@ def home__page(request:HttpRequest) -> HttpResponse:
     
     categories = Category.objects.all().order_by("date_created")
     
+    # Get latest updated posts
+    latest_posts = Post.objects.all().order_by("date_updated")[:2]
+    
+    # Get recent created posts
+    recent_posts = Post.objects.all().order_by("date_created")[:6]
+    
+    # Get categories title 
+    category_names = []
+    
+    # Append each category name to category_names list
+    [category_names.append(category.slug) for category in categories]
+    
+    # Print category names to the terminal
+    print("Category Names: ", category_names)
+    
+    # Get posts with different categories
+    posts_1 = Post.objects.get(tag__slug=category_names[0])[:1]
+    posts_2 = Post.objects.filter(tag__slug=category_names[1])[:2]
+    posts_3 = Post.objects.filter(tag__slug=category_names[2])[:2]
+    posts_4 = Post.objects.filter(tag__slug=category_names[3])[:2]
+    
+    # Get posts wit
+    
     context = {
         "site__name": settings.DYNAMO_BLOGGER['site_name'],
         "facebook": settings.DYNAMO_BLOGGER['facebook'],
