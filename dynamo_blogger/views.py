@@ -51,6 +51,15 @@ def home__page(request:HttpRequest) -> HttpResponse:
         "linkedin": settings.DYNAMO_BLOGGER['linkedin'],
         "instagram": settings.DYNAMO_BLOGGER['instagram'],
         
+        "latest_posts": latest_posts,
+        "recent_posts": recent_posts,
+        "posts_1": posts_1,
+        "posts_2": posts_2,
+        "posts_3": posts_3,
+        "posts_4": posts_4,
+        "featured_posts": featured_posts,
+        "most_read_posts": most_read_posts,
+        
         "categories": categories
     }
     return render(request, "blog/index.html", context)
