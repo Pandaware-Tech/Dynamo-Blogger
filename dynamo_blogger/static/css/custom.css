@@ -47,5 +47,5 @@ ul.mobile__messages li.alert-dark {
 }
 
 .top_350 {
-    right: 350px;
+    right: 350px !important;
 }
