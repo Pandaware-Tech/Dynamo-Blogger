@@ -124,9 +124,25 @@ def category__page(request:HttpRequest, slug:str) -> HttpResponse:
     
     categories = Category.objects.all().order_by("date_created")
     
+    # Category posts
+    posts = Post.objects.filter(tag=category, status="published").order_by("date_created")
+    
+    try:
+        featured_post = Post.objects.get(tag=category, status="published", featured=True)
+    except Post.DoesNotExist:
+        featured_post = Post.objects.filter(tag=category, status="published").first()
+        
+    # Most read featured posts
+    most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
+    
+    
     context = {
         "categories": categories,
         "category": category,
+        
+        "most_read_posts": most_read_posts,
+        "posts": posts,
+        "featured_post": featured_post,
         
         "site__name": settings.DYNAMO_BLOGGER['site_name'],
         "facebook": settings.DYNAMO_BLOGGER['facebook'],
