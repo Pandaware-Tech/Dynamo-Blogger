@@ -62,26 +62,26 @@
 
 				<div class="section-row">
 					<div class="section-title">
-						<h2>3 Comments</h2>
+						<h2>{{ post.get_number_of_comments }} Comments</h2>
 					</div>
 					<div class="post-comments">
 
+						{% for comment in comments %}
 						<div class="media">
 							<div class="media-left">
 								<img class="media-object" src="{% static 'img/avatar.png' %}" alt="">
 							</div>
 							<div class="media-body">
 								<div class="media-heading">
-									<h4>John Doe</h4>
-									<span class="time">March 27, 2018 at 8:00 am</span>
-									<a href="#" class="reply">Reply</a>
+									<h4>{{ comment.name }}</h4>
+									<span class="time">{{ comment.date_created }}</span>
+									{% comment %} <a href="#" class="reply">Reply</a> {% endcomment %}
 								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-									incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								<p>
+									{{ comment.message }}
 								</p>
 
-								<div class="media">
+								{% comment %} <div class="media">
 									<div class="media-left">
 										<img class="media-object" src="{% static 'img/avatar.png' %}" alt="">
 									</div>
@@ -96,28 +96,11 @@
 											veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
 											commodo consequat.</p>
 									</div>
-								</div>
+								</div> {% endcomment %}
 
 							</div>
 						</div>
-
-
-						<div class="media">
-							<div class="media-left">
-								<img class="media-object" src="{% static 'img/avatar.png' %}" alt="">
-							</div>
-							<div class="media-body">
-								<div class="media-heading">
-									<h4>John Doe</h4>
-									<span class="time">March 27, 2018 at 8:00 am</span>
-									<a href="#" class="reply">Reply</a>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-									incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-								</p>
-							</div>
-						</div>
+						{% endfor %}
 
 					</div>
 				</div>
@@ -129,17 +112,19 @@
 						<p>your email address will not be published. required fields are marked *</p>
 					</div>
 					<form method="POST" action="{% url 'dynamo_blogger:blog__comment' post.slug %}" class="post-reply">
+						{% csrf_token %}
+						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<span>Name *</span>
-									<input class="input" type="text" name="name">
+									<input class="input" type="text" name="name" required>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<span>Email *</span>
-									<input class="input" type="email" name="email">
+									<input class="input" type="email" name="email" required>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -150,7 +135,7 @@
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<textarea class="input" name="message" placeholder="Message"></textarea>
+									<textarea class="input" name="message" placeholder="Message*" required></textarea>
 								</div>
 								<button class="primary-button">Submit</button>
 							</div>
