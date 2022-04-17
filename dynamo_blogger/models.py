@@ -45,7 +45,7 @@ class PostAuthor(TimeStampedModel):
         db_table = "blog_authors"
     
     def __str__(self) -> str:
-        return "{}'s author profile".format(self.user.username)
+        return "{} {}".format(self.user.first_name, self.user.last_name)
     
     def fullname(self) -> str:
         return "{} {}".format(self.user.first_name, self.user.last_name)
