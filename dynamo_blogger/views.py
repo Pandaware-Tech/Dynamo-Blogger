@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect
 from dynamo_blogger.models import Category, Post, Comment
 
 
@@ -131,3 +131,8 @@ def category__page(request:HttpRequest, slug:str) -> HttpResponse:
         "instagram": settings.DYNAMO_BLOGGER['instagram'],
     }
     return render(request, "blog/category.html", context)
+
+
+def create__comment(request:HttpRequest, post_slug) -> HttpResponsePermanentRedirect:
+    
+    return redirect("dynamo_blogger:blog__post", slug=post_slug)
