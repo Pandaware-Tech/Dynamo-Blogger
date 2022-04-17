@@ -78,11 +78,21 @@ def blog__post(request:HttpRequest, slug:str) -> HttpResponse:
     
     post = Post.objects.get(slug=slug)
     
+    # Get featured posts
+    featured_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:2]
+    
+    # Most read featured posts
+    most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
+    
+    
     categories = Category.objects.all().order_by("date_created")
     
     context = {
         "categories": categories,
         "post": post,
+        
+        "featured_posts": featured_posts,
+        "most_read_posts": most_read_posts,
         
         "site__name": settings.DYNAMO_BLOGGER['site_name'],
         "facebook": settings.DYNAMO_BLOGGER['facebook'],
