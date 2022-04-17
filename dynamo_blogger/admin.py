@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dynamo_blogger.models import Category, Post, Comment, PostAuthor
+from dynamo_blogger.models import Category, Post, Comment, PostAuthor, Newsletter
 
 
 @admin.register(Category)
@@ -19,4 +19,9 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
     pass
