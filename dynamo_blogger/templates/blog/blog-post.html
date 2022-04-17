@@ -25,12 +25,10 @@
 						<p>{{ post.description|safe }}</p>
 					</div>
 					<div class="post-shares sticky-shares">
-						<a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
-						<a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
-						<a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
-						<a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
-						<a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
-						<a href="#"><i class="fa fa-envelope"></i></a>
+						<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="share-facebook"><i class="fa fa-facebook"></i></a>
+						<a target="_blank" href="https://twitter.com/intent/tweet?text={{ post.title }}&url={{ request.build_absolute_uri }}" class="share-twitter"><i class="fa fa-twitter"></i></a>
+						<a target="_blank" href="https://api.whatsapp.com/?text={{ post.title }}?url={{ request.build_absolute_uri }}" class="share-whatsapp"><i class="fa fa-whatsapp"></i></a>
+						<a target="_blank" href="https://www.linkedin.com/shareArticle/?title={{ post.title }}&url={{ request.build_absolute_uri }}2F{{ post.title }}2F&mini=true" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
 					</div>
 				</div>
 
