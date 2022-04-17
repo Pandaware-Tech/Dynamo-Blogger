@@ -34,3 +34,14 @@ h3.post-title > a {
 h3.footer-title {
     text-transform: uppercase !important;
 }
+
+ul.mobile__messages li.alert {
+    padding: 20px;
+    font-size: 16px;
+    text-align: right;
+}
+
+ul.mobile__messages li.alert-dark {
+    background-color: #000;
+    color: #fff;
+}
