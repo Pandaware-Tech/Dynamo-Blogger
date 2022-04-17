@@ -128,7 +128,7 @@
 						<h2>Leave a reply</h2>
 						<p>your email address will not be published. required fields are marked *</p>
 					</div>
-					<form class="post-reply">
+					<form method="POST" action="{% url 'dynamo_blogger:blog__comment' post.slug %}" class="post-reply">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
@@ -214,7 +214,7 @@
 						</div>
 					</div>
 					{% endfor %}
-					
+
 				</div>
 
 			</div>
