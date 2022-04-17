@@ -45,3 +45,7 @@ ul.mobile__messages li.alert-dark {
     background-color: #000;
     color: #fff;
 }
+
+.top_350 {
+    right: 350px;
+}
