@@ -11,7 +11,7 @@ User = get_user_model()
 
 class Category(TimeStampedModel):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, null=True, blank=True)
+    slug = models.SlugField(max_length=255, null=True, blank=True, editable=False)
     
     class Meta:
         verbose_name_plural = "Blog Categories"
@@ -30,7 +30,25 @@ class Category(TimeStampedModel):
             self.slug = slugify(self.title)
             super(Category, self).save(*args, **kwargs)
         super(Category, self).save(*args, **kwargs)
-        
+
+    
+class PostAuthor(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to="author_images/", null=True, blank=True)
+    biography = RichTextField(null=True, blank=True)
+    facebook = models.URLField(null=True, blank=True)
+    twitter = models.URLField(null=True, blank=True)
+    linkedin = models.URLField(null=True, blank=True)
+    
+    class Meta:
+        verbose_name_plural = "Blog Authors"
+        db_table = "blog_authors"
+    
+    def __str__(self) -> str:
+        return "{} {}".format(self.user.first_name, self.user.last_name)
+    
+    def fullname(self) -> str:
+        return "{} {}".format(self.user.first_name, self.user.last_name)
         
 
 class Post(TimeStampedModel):
@@ -48,7 +66,7 @@ class Post(TimeStampedModel):
     description = RichTextField()
     featured = models.BooleanField(default=False)
     status = models.CharField(max_length=10, choices=STATUS_TYPES, default="draft")
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(PostAuthor, on_delete=models.CASCADE, null=True, blank=True)
     
     class Meta:
         verbose_name_plural = "Blog Posts"
@@ -74,8 +92,7 @@ class Post(TimeStampedModel):
         """
         comment_count = Comment.objects.filter(blog_post_id=self.id).count()
         return comment_count
-        
-        
+              
         
 class Comment(TimeStampedModel):
     name = models.CharField(max_length=255)
@@ -97,17 +114,12 @@ class Comment(TimeStampedModel):
         super(Comment, self).save(*args, **kwargs)
     
     
-class PostAuthor(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to="author_images/", null=True, blank=True)
-    biography = RichTextField(null=True, blank=True)
-    facebook = models.URLField(null=True, blank=True)
-    twitter = models.URLField(null=True, blank=True)
-    linkedin = models.URLField(null=True, blank=True)
+class Newsletter(TimeStampedModel):
+    email = models.EmailField()
     
     class Meta:
-        verbose_name_plural = "Blog Authors"
-        db_table = "blog_authors"
+        verbose_name_plural = "Blog Newsletters"
+        db_table = "blog_newsletters"
     
     def __str__(self) -> str:
-        return "{}'s author profile".format(self.user.username)
+        return self.email

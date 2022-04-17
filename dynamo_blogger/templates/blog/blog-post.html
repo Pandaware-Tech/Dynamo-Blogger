@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %} 
+{{ post.title }} 
+{% endblock title %}
+
 {% block content %}
 <div class="section">
 
@@ -12,68 +16,19 @@
 			<div class="col-md-8">
 				<div class="section-row sticky-container">
 					<div class="main-post">
-						<h3>Lorem Ipsum: when, and when not to use it</h3>
-						<p>Do you like Cheese Whiz? Spray tan? Fake eyelashes? That's what is Lorem Ipsum to many—it
-							rubs them the wrong way, all the way. It's unreal, uncanny, makes you wonder if
-							something is wrong, it seems to seek your attention for all the wrong reasons. Usually,
-							we prefer the real thing, wine without sulfur based preservatives, real butter, not
-							margarine, and so we'd like our layouts and designs to be filled with real words, with
-							thoughts that count, information that has value. </p>
-						<p>The toppings you may chose for that TV dinner pizza slice when you forgot to shop for
-							foods, the paint you may slap on your face to impress the new boss is your business. But
-							what about your daily bread? Design comps, layouts, wireframes—will your clients accept
-							that you go about things the facile way? Authorities in our business will tell in no
-							uncertain terms that Lorem Ipsum is that huge, huge no no to forswear forever. Not so
-							fast, I'd say, there are some redeeming factors in favor of greeking text, as its use is
-							merely the symptom of a worse problem to take into consideration.</p>
+						<h3>{{ post.title|upper }}</h3>
+						
 						<figure class="figure-img">
-							<img class="img-responsive" src="{% static 'img/xpost-4.jpg.pagespeed.ic.acII8ZYTz8.jpg' %}" alt="">
-							<figcaption>So Lorem Ipsum is bad (not necessarily)</figcaption>
+							<img class="img-responsive" src="{{ post.image.url }}" alt="{{ post.title }}">
 						</figure>
-						<p>You begin with a text, you sculpt information, you chisel away what's not needed, you
-							come to the point, make things clear, add value, you're a content person, you like
-							words. Design is no afterthought, far from it, but it comes in a deserved second.
-							Anyway, you still use Lorem Ipsum and rightly so, as it will always have a place in the
-							web workers toolbox, as things happen, not always the way you like it, not always in the
-							preferred order. Even if your less into design and more into content strategy you may
-							find some redeeming value with, wait for it, dummy copy, no less.</p>
-						<p>There's lot of hate out there for a text that amounts to little more than garbled words
-							in an old language. The villagers are out there with a vengeance to get that
-							Frankenstein, wielding torches and pitchforks, wanting to tar and feather it at the
-							least, running it out of town in shame.</p>
-						<p>One of the villagers, Kristina Halvorson from Adaptive Path, holds steadfastly to the
-							notion that design can’t be tested without real content:</p>
-						<blockquote class="blockquote">
-							I’ve heard the argument that “lorem ipsum” is effective in wireframing or design because
-							it helps people focus on the actual layout, or color scheme, or whatever. What kills me
-							here is that we’re talking about creating a user experience that will (whether we like
-							it or not) be DRIVEN by words. The entire structure of the page or app flow is FOR THE
-							WORDS.
-						</blockquote>
-						<p>If that's what you think how bout the other way around? How can you evaluate content
-							without design? No typography, no colors, no layout, no styles, all those things that
-							convey the important signals that go beyond the mere textual, hierarchies of
-							information, weight, emphasis, oblique stresses, priorities, all those subtle cues that
-							also have visual and emotional appeal to the reader. Rigid proponents of content
-							strategy may shun the use of dummy copy but then designers might want to ask them to
-							provide style sheets with the copy decks they supply that are in tune with the design
-							direction they require.</p>
-						<h3>Summing up, if the copy is diverting attention from the design it’s because it’s not up
-							to task.</h3>
-						<p>Typographers of yore didn't come up with the concept of dummy copy because people thought
-							that content is inconsequential window dressing, only there to be used by designers who
-							can’t be bothered to read. Lorem Ipsum is needed because words matter, a lot. Just fill
-							up a page with draft copy about the client’s business and they will actually read it and
-							comment on it. They will be drawn to it, fiercely. Do it the wrong way and draft copy
-							can derail your design review.</p>
+
+						<p>{{ post.description|safe }}</p>
 					</div>
 					<div class="post-shares sticky-shares">
-						<a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
-						<a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
-						<a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
-						<a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
-						<a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
-						<a href="#"><i class="fa fa-envelope"></i></a>
+						<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="share-facebook"><i class="fa fa-facebook"></i></a>
+						<a target="_blank" href="https://twitter.com/intent/tweet?text={{ post.title }}&url={{ request.build_absolute_uri }}" class="share-twitter"><i class="fa fa-twitter"></i></a>
+						<a target="_blank" href="https://api.whatsapp.com/?text={{ post.title }}?url={{ request.build_absolute_uri }}" class="share-whatsapp"><i class="fa fa-whatsapp"></i></a>
+						<a target="_blank" href="https://www.linkedin.com/shareArticle/?title={{ post.title }}&url={{ request.build_absolute_uri }}2F{{ post.title }}2F&mini=true" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
 					</div>
 				</div>
 
@@ -83,21 +38,19 @@
 					<div class="post-author">
 						<div class="media">
 							<div class="media-left">
-								<img class="media-object" src="{% static 'img/author.png' %}" alt="">
+								<img class="media-object author-pic" src="{{ post.author.profile_picture.url }}" alt="{{ post.author.user.username }}">
 							</div>
 							<div class="media-body">
 								<div class="media-heading">
-									<h3>John Doe</h3>
+									<h3>{{ post.author.fullname }}</h3>
 								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-									incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								<p>
+									{{ post.author.biography|safe }}
 								</p>
 								<ul class="author-social">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+									<li><a href="{{ post.author.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="{{ post.author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="{{ post.author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -107,26 +60,26 @@
 
 				<div class="section-row">
 					<div class="section-title">
-						<h2>3 Comments</h2>
+						<h2>{{ post.get_number_of_comments }} Comments</h2>
 					</div>
 					<div class="post-comments">
 
+						{% for comment in comments %}
 						<div class="media">
 							<div class="media-left">
 								<img class="media-object" src="{% static 'img/avatar.png' %}" alt="">
 							</div>
 							<div class="media-body">
 								<div class="media-heading">
-									<h4>John Doe</h4>
-									<span class="time">March 27, 2018 at 8:00 am</span>
-									<a href="#" class="reply">Reply</a>
+									<h4>{{ comment.name }}</h4>
+									<span class="time">{{ comment.date_created }}</span>
+									{% comment %} <a href="#" class="reply">Reply</a> {% endcomment %}
 								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-									incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								<p>
+									{{ comment.message }}
 								</p>
 
-								<div class="media">
+								{% comment %} <div class="media">
 									<div class="media-left">
 										<img class="media-object" src="{% static 'img/avatar.png' %}" alt="">
 									</div>
@@ -141,28 +94,11 @@
 											veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
 											commodo consequat.</p>
 									</div>
-								</div>
+								</div> {% endcomment %}
 
 							</div>
 						</div>
-
-
-						<div class="media">
-							<div class="media-left">
-								<img class="media-object" src="{% static 'img/avatar.png' %}" alt="">
-							</div>
-							<div class="media-body">
-								<div class="media-heading">
-									<h4>John Doe</h4>
-									<span class="time">March 27, 2018 at 8:00 am</span>
-									<a href="#" class="reply">Reply</a>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-									incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-								</p>
-							</div>
-						</div>
+						{% endfor %}
 
 					</div>
 				</div>
@@ -173,18 +109,20 @@
 						<h2>Leave a reply</h2>
 						<p>your email address will not be published. required fields are marked *</p>
 					</div>
-					<form class="post-reply">
+					<form method="POST" action="{% url 'dynamo_blogger:blog__comment' post.slug %}" class="post-reply">
+						{% csrf_token %}
+						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<span>Name *</span>
-									<input class="input" type="text" name="name">
+									<input class="input" type="text" name="name" required>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<span>Email *</span>
-									<input class="input" type="email" name="email">
+									<input class="input" type="email" name="email" required>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -195,7 +133,7 @@
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<textarea class="input" name="message" placeholder="Message"></textarea>
+									<textarea class="input" name="message" placeholder="Message*" required></textarea>
 								</div>
 								<button class="primary-button">Submit</button>
 							</div>
@@ -212,38 +150,22 @@
 					<div class="section-title">
 						<h2>Most Read</h2>
 					</div>
+					
+					{% for post in most_read_posts %}
 					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-								src="{% static 'img/xwidget-1.jpg.pagespeed.ic.nqEkEDP2_z.jpg' %}" alt=""></a>
+						<a class="post-img" href="{{ post.get_absolute_url }}">
+							<img src="{{ post.image.url }}" alt="{{ post.title }}">
+						</a>
 						<div class="post-body">
-							<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And
-									Development Tools</a></h3>
+							<h3 class="post-title">
+								<a href="{{ post.get_absolute_url }}">
+									{{ post.title }}
+								</a>
+							</h3>
 						</div>
 					</div>
-					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-								src="{% static 'img/xwidget-2.jpg.pagespeed.ic.183VIkUWUH.jpg' %}" alt=""></a>
-						<div class="post-body">
-							<h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website
-									Design Mockup Into Code Automatically</a></h3>
-						</div>
-					</div>
-					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-								src="{% static 'img/xwidget-3.jpg.pagespeed.ic.NkT9v3Xk_w.jpg' %}" alt=""></a>
-						<div class="post-body">
-							<h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The
-									Backend Development Block!</a></h3>
-						</div>
-					</div>
-					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-								src="{% static 'img/xwidget-4.jpg.pagespeed.ic.KoyoxijWdu.jpg' %}" alt=""></a>
-						<div class="post-body">
-							<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And
-									Development Tools</a></h3>
-						</div>
-					</div>
+					{% endfor %}
+
 				</div>
 
 
@@ -251,30 +173,31 @@
 					<div class="section-title">
 						<h2>Featured Posts</h2>
 					</div>
+					
+					{% for post in featured_posts %}
 					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img
-								src="{% static 'img/xpost-2.jpg.pagespeed.ic.TYs1GPrTN5.jpg' %}" alt=""></a>
+						<a class="post-img" href="{{ post.get_absolute_url }}">
+							<img src="{{ post.image.url }}" alt="{{ post.title }}">
+						</a>
+						
 						<div class="post-body">
 							<div class="post-meta">
-								<a class="post-category cat-3" href="#">Jquery</a>
-								<span class="post-date">March 27, 2018</span>
+								<a class="post-category cat-3" href="{{ post.tag.get_absolute_url }}">
+									{{ post.tag.title }}
+								</a>
+								<span class="post-date">
+									{{ post.date_created|date:"M d, Y" }}
+								</span>
 							</div>
-							<h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use
-									JQuery?</a></h3>
+							<h3 class="post-title">
+								<a href="{{ post.get_absolute_url }}">
+									{{ post.title }}
+								</a>
+							</h3>
 						</div>
 					</div>
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img
-								src="{% static 'img/xpost-1.jpg.pagespeed.ic.A4Rpahx6U5.jpg' %}" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-2" href="#">JavaScript</a>
-								<span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against
-									JavaScript-Based CPU Side-Channel Attacks</a></h3>
-						</div>
-					</div>
+					{% endfor %}
+
 				</div>
 
 			</div>

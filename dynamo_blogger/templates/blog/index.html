@@ -11,6 +11,18 @@
 
 	<div class="container">
 
+		<!-- Messages -->
+		{% if messages %}
+		<ul class="messages mobile__messages">
+			{% for message in messages %}
+			<li {% if message.tags %} class="alert alert-dark" {% endif %}>
+				{{ message }}
+			</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		<!-- Messages -->
+
 		<!-- Latest Updated Posts -->
 		<div class="row">
 
@@ -18,7 +30,7 @@
 			<div class="col-md-6">
 				<div class="post post-thumb">
 					<a class="post-img" href="{{ post.get_absolute_url }}">
-						<img src="{% static 'img/xpost-1.jpg.pagespeed.ic.A4Rpahx6U5.jpg' %}"
+						<img src="{{ post.image.url }}"
 							alt="{{ post.title }}">
 					</a>
 					<div class="post-body">
@@ -52,8 +64,7 @@
 			<div class="col-md-4">
 				<div class="post">
 					<a class="post-img" href="{{ post.get_absolute_url }}">
-						<img src="{% static 'img/xpost-3.jpg.pagespeed.ic.uIu7s9VpdP.jpg' %}"
-							alt="{{ post.title }}">
+						<img src="{{ post.image.url }}" alt="{{ post.title }}">
 					</a>
 					<div class="post-body">
 						<div class="post-meta">
@@ -85,7 +96,7 @@
 					<div class="col-md-12">
 						<div class="post post-thumb">
 							<a class="post-img" href="{{ post.get_absolute_url }}">
-								<img src="{% static 'img/xpost-2.jpg.pagespeed.ic.TYs1GPrTN5.jpg' %}" alt="{{ post.title }}">
+								<img src="{{ post.image.url }}" alt="{{ post.title }}">
 							</a>
 
 							<div class="post-body">
@@ -110,7 +121,7 @@
 					<div class="col-md-6">
 						<div class="post">
 							<a class="post-img" href="{{ post.get_absolute_url }}">
-								<img src="{% static 'img/xpost-1.jpg.pagespeed.ic.A4Rpahx6U5.jpg' %}" alt="{{ post.title }}">
+								<img src="{{ post.image.url }}" alt="{{ post.title }}">
 							</a>
 
 							<div class="post-body">
@@ -136,7 +147,7 @@
 					<div class="col-md-6">
 						<div class="post">
 							<a class="post-img" href="{{ post.get_absolute_url }}">
-								<img src="{% static 'img/xpost-1.jpg.pagespeed.ic.A4Rpahx6U5.jpg' %}" alt="{{ post.title }}">
+								<img src="{{ post.image.url }}" alt="{{ post.title }}">
 							</a>
 
 							<div class="post-body">
@@ -162,7 +173,7 @@
 					<div class="col-md-6">
 						<div class="post">
 							<a class="post-img" href="{{ post.get_absolute_url }}">
-								<img src="{% static 'img/xpost-1.jpg.pagespeed.ic.A4Rpahx6U5.jpg' %}" alt="{{ post.title }}">
+								<img src="{{ post.image.url }}" alt="{{ post.title }}">
 							</a>
 
 							<div class="post-body">
@@ -194,7 +205,7 @@
 					{% for post in most_read_posts %}
 					<div class="post post-widget">
 						<a class="post-img" href="{{ post.get_absolute_url }}">
-							<img src="{% static 'img/xwidget-1.jpg.pagespeed.ic.nqEkEDP2_z.jpg' %}" alt="{{ post.title }}">
+							<img src="{{ post.image.url }}" alt="{{ post.title }}">
 						</a>
 						<div class="post-body">
 							<h3 class="post-title">
@@ -218,7 +229,7 @@
 					{% for post in featured_posts %}
 					<div class="post post-thumb">
 						<a class="post-img" href="{{ post.get_absolute_url }}">
-							<img src="{% static 'img/xpost-2.jpg.pagespeed.ic.TYs1GPrTN5.jpg' %}" alt="{{ post.title }}">
+							<img src="{{ post.image.url }}" alt="{{ post.title }}">
 						</a>
 						
 						<div class="post-body">

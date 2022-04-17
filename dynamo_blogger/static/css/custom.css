@@ -26,3 +26,31 @@ h3.post-title > a {
     line-height: 24px !important;
     font-weight: 400 !important;
 }
+
+.author-pic {
+    border: 1px solid #000 !important;
+}
+
+h3.footer-title {
+    text-transform: uppercase !important;
+}
+
+ul.mobile__messages li.alert {
+    padding: 20px;
+    font-size: 16px;
+    text-align: right;
+}
+
+ul.mobile__messages li.alert-dark {
+    background-color: #000;
+    color: #fff;
+}
+
+.top_350 {
+    right: 350px !important;
+}
+
+.share-whatsapp:hover {
+    color:#09b562;
+    border-color:#12bb23;
+}
