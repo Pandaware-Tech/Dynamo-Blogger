@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from dynamo_blogger.models import Category, Post, Comment
+from dynamo_blogger.models import Category, Newsletter, Post, Comment
 
 
 def home__page(request:HttpRequest) -> HttpResponse:
@@ -67,7 +68,9 @@ def home__page(request:HttpRequest) -> HttpResponse:
 
 def blog__post(request:HttpRequest, slug:str) -> HttpResponse:
     """
-    > The function `blog__post` takes a request and a slug, and returns a response
+    > The function `blog__post` takes a request and a slug, 
+    gets the most read posts, the category page and then renders them 
+    to the home page (returns a response)
     
     :param request: The request object
     :type request: HttpRequest
@@ -79,10 +82,12 @@ def blog__post(request:HttpRequest, slug:str) -> HttpResponse:
     post = Post.objects.get(slug=slug)
     
     # Get featured posts
-    featured_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:2]
+    featured_posts = Post.objects.filter(featured=True, status="published")\
+        .order_by("date_created")[:2]
     
     # Most read featured posts
-    most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
+    most_read_posts = Post.objects.filter(featured=True, status="published")\
+        .order_by("date_created")[:4]
     
     # User comments 
     comments = Comment.objects.filter(blog_post=post)
@@ -109,23 +114,25 @@ def blog__post(request:HttpRequest, slug:str) -> HttpResponse:
 
 def category__page(request:HttpRequest, slug:str) -> HttpResponse:
     """
-    > It gets the category from the database, 
-    gets all the categories from the database, 
-    and then renders the category page
+    It gets the category from the database, 
+    gets all the posts that belong to that category, gets the
+    most read posts, the category page and then renders them 
+    to the category page
     
     :param request: The request object
     :type request: HttpRequest
-    :param slug: The slug of the category
+    :param slug: The slug of the category to be displayed
     :type slug: str
-    :return: A HttpResponse object.
+    :return: A HttpResponse object
     """
-    
+
     category = Category.objects.get(slug=slug)
     
     categories = Category.objects.all().order_by("date_created")
     
     # Category posts
-    posts = Post.objects.filter(tag=category, status="published").order_by("date_created")
+    posts = Post.objects.filter(tag=category, status="published")\
+        .order_by("date_created")
     
     try:
         featured_post = Post.objects.get(tag=category, status="published", featured=True)
@@ -133,7 +140,8 @@ def category__page(request:HttpRequest, slug:str) -> HttpResponse:
         featured_post = Post.objects.filter(tag=category, status="published").first()
         
     # Most read featured posts
-    most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
+    most_read_posts = Post.objects.filter(featured=True, status="published")\
+        .order_by("date_created")[:4]
     
     
     context = {
@@ -154,6 +162,16 @@ def category__page(request:HttpRequest, slug:str) -> HttpResponse:
 
 
 def create__comment(request:HttpRequest, slug) -> HttpResponseRedirect:
+    """
+    > Create a comment object with the data from the form, 
+    save it to the database, and redirect the
+    user to the blog post page
+    
+    :param request: The request object that was sent to the view
+    :type request: HttpRequest
+    :param slug: The slug of the blog post that the comment is being created for
+    :return: A redirect to the blog post page.
+    """
     name = request.POST.get("name")
     email = request.POST.get("email")
     website = request.POST.get("website")
@@ -166,3 +184,27 @@ def create__comment(request:HttpRequest, slug) -> HttpResponseRedirect:
     )
     comment.save()
     return redirect("dynamo_blogger:blog__post", slug)
+
+
+def subscribe(request:HttpRequest) -> HttpResponseRedirect:
+    """
+    > The function subscribes a user to the newsletter by creating 
+    a new newsletter object and saving it
+    to the database
+    
+    :param request: This is the request object that is passed to the view
+    :type request: HttpRequest
+    :return: A redirect to the home page.
+    """
+    email = request.POST.get("newsletter")
+    
+    # Create newsletter and save to database
+    newsletter = Newsletter.objects.get_or_create(email=email)
+    newsletter.save()
+    
+    if newsletter.exists():
+        messages.warning(request, "You are already subscribed!")
+        return redirect("dynamo_blogger:home__page")
+    
+    messages.success(request, "You have been subscribed to our newsletter!")
+    return redirect("dynamo_blogger:home__page")
