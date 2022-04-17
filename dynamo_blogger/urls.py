@@ -10,5 +10,4 @@ urlpatterns = [
     path("<slug>/", views.blog__post, name="blog__post"),
     path("comment/<slug>/", views.create__comment, name="blog__comment"),
     path("category/<slug>/", views.category__page, name="category__page"),
-    path("subscribe/", views.subscribe, name="subscribe__email")
 ]

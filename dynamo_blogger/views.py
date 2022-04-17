@@ -45,6 +45,18 @@ def home__page(request:HttpRequest) -> HttpResponse:
     # Most read featured posts
     most_read_posts = Post.objects.filter(featured=True, status="published").order_by("date_created")[:4]
     
+    
+    if request.method == "POST":
+        email = request.POST.get("newsletter")
+    
+        # Create newsletter and save to database
+        newsletter = Newsletter.objects.create(email=email)
+        newsletter.save()
+        
+        # Redirect user to the home page with a response message
+        messages.success(request, "You have been subscribed to our newsletter!")
+        return redirect("dynamo_blogger:home__page")
+
     context = {
         "site__name": settings.DYNAMO_BLOGGER['site_name'],
         "facebook": settings.DYNAMO_BLOGGER['facebook'],
@@ -79,7 +91,10 @@ def blog__post(request:HttpRequest, slug:str) -> HttpResponse:
     :return: A HttpResponse object.
     """
     
-    post = Post.objects.get(slug=slug)
+    try:
+        post = Post.objects.get(slug=slug)
+    except Post.DoesNotExist:
+        post = None
     
     # Get featured posts
     featured_posts = Post.objects.filter(featured=True, status="published")\
@@ -184,27 +199,3 @@ def create__comment(request:HttpRequest, slug) -> HttpResponseRedirect:
     )
     comment.save()
     return redirect("dynamo_blogger:blog__post", slug)
-
-
-def subscribe(request:HttpRequest) -> HttpResponseRedirect:
-    """
-    > The function subscribes a user to the newsletter by creating 
-    a new newsletter object and saving it
-    to the database
-    
-    :param request: This is the request object that is passed to the view
-    :type request: HttpRequest
-    :return: A redirect to the home page.
-    """
-    email = request.POST.get("newsletter")
-    
-    # Create newsletter and save to database
-    newsletter = Newsletter.objects.get_or_create(email=email)
-    newsletter.save()
-    
-    if newsletter.exists():
-        messages.warning(request, "You are already subscribed!")
-        return redirect("dynamo_blogger:home__page")
-    
-    messages.success(request, "You have been subscribed to our newsletter!")
-    return redirect("dynamo_blogger:home__page")
