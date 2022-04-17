@@ -92,8 +92,7 @@ class Post(TimeStampedModel):
         """
         comment_count = Comment.objects.filter(blog_post_id=self.id).count()
         return comment_count
-        
-        
+              
         
 class Comment(TimeStampedModel):
     name = models.CharField(max_length=255)
@@ -114,3 +113,13 @@ class Comment(TimeStampedModel):
         self.email = self.email.lower()
         super(Comment, self).save(*args, **kwargs)
     
+    
+class Newsletter(TimeStampedModel):
+    email = models.EmailField()
+    
+    class Meta:
+        verbose_name_plural = "Blog Newsletters"
+        db_table = "blog_newsletters"
+    
+    def __str__(self) -> str:
+        return self.email
