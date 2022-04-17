@@ -30,3 +30,7 @@ h3.post-title > a {
 .author-pic {
     border: 1px solid #000 !important;
 }
+
+h3.footer-title {
+    text-transform: uppercase !important;
+}
