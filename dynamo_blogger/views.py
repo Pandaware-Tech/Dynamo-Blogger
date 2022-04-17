@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from dynamo_blogger.models import Category, Post, Comment
 
 
@@ -133,6 +133,16 @@ def category__page(request:HttpRequest, slug:str) -> HttpResponse:
     return render(request, "blog/category.html", context)
 
 
-def create__comment(request:HttpRequest, post_slug) -> HttpResponsePermanentRedirect:
+def create__comment(request:HttpRequest, slug) -> HttpResponseRedirect:
+    name = request.POST.get("name")
+    email = request.POST.get("email")
+    website = request.POST.get("website")
+    message = request.POST.get("message")
     
-    return redirect("dynamo_blogger:blog__post", slug=post_slug)
+    # Create comment and save to database
+    comment = Comment.objects.create(
+        name=name, email=email, website=website, 
+        message=message, blog_post=Post.objects.get(slug=slug)
+    )
+    comment.save()
+    return redirect("dynamo_blogger:blog__post", slug)
