@@ -174,9 +174,9 @@
 					<div class="footer-widget">
 						<h3 class="footer-title">Join our Newsletter</h3>
 						<div class="footer-newsletter">
-							<form method="POST" action="{% url 'dynamo_blogger:subscribe__email' %}">
+							<form method="POST">
 								{% csrf_token %}
-								
+
 								<input class="input" type="email" name="newsletter" placeholder="Enter your email">
 								<button class="newsletter-btn" type="submit"><i class="fa fa-paper-plane"></i></button>
 							</form>
