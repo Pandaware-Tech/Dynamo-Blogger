@@ -50,4 +50,4 @@ You may also want to follow the author on [twitter](https://twitter.com/israelab
 
 License
 ---------
-Disclaimer: Everything you see here is open and free to use as long as you comply with the [license](https://github.com/Pandaware-Tech/Dynamo-Blogger/blob/main/LICENSE). There are no hidden charges. We promise to do our best to fix bugs and improve the code.
+Disclaimer: Everything you see here is open and free to use as long as you comply with the [license](https://github.com/Pandaware-Tech/Dynamo-Blogger/blob/main/LICENSE.txt). There are no hidden charges. We promise to do our best to fix bugs and improve the code.
