@@ -1,0 +1,7 @@
+Change Log
+==========
+
+1.0 (19/04/2022)
+-------------------
+- First Release
+- Documentation release
